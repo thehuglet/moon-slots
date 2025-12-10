@@ -31,18 +31,28 @@ M.dragged_card_index = nil
 
 ---@type integer
 M.drag_offset_x = 0
+M.drag_offset_y = 0
 
----@type integer
-M.draw_offset_y = 0
+---@type integer?
+M.potential_drop_index = nil
 
 ---@class HandUIPositions
----@field x integer,
----@field y integer,
----@field angle number,
----@field scale number,
+---@field x number
+---@field y number
+---@field angle number
+---@field scale number
 
 ---@type HandUIPositions[]
 M.current_hand_card_ui_positions = {}
+
+---@type HandUIPositions[]
+M.target_hand_card_ui_positions = {}
+
+---@type table<integer, boolean>
+M.needs_tweening = {}
+
+-- Tweening properties
+M.tween_speed = 0.2 -- How fast cards move (0-1, higher = faster)
 
 for _ = 1, NUM_COLUMNS do
     -- build deck
@@ -70,7 +80,6 @@ end
 
 for hand_card_slot_index = 1, NUM_HAND_CARD_SLOTS do
     local layout = m_layout.CARDS_IN_HAND
-
     local x_spacing = m_layout.CARD_BIG_SIZE.width * layout.x_spacing_ratio * layout.scale
     table.insert(M.cards_in_hand, m_card.Card(m_card.RANK.ACE, m_card.SUIT.SPADES))
 end
