@@ -6,5 +6,6 @@
     "love.filesystem.load": "loadfile"
   },
   "hint.enable": true,
-  "format.enable": true
+  "format.enable": true,
+  "diagnostics.globals": []
 }
